@@ -21,7 +21,7 @@ public class GameWindow implements KeyListener {
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setSize(800 * 2, 600 * 2);
+		frame.setSize(1000, 750);
 
 	}
 
@@ -40,7 +40,7 @@ public class GameWindow implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		panel.keyReleased(e);
 	}
 
 }

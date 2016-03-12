@@ -16,6 +16,18 @@ public class Truck extends GameObject {
 		if (left == true) {
 			int newX = this.getX();
 			this.setX(newX -= 5);
+			System.out.println("yo");
+		}
+
+		if (right == true) {
+			int newX = this.getX();
+			this.setX(newX += 5);
+		}
+		if (this.getX() <= 150) {
+			this.setX(150);
+		}
+		if (this.getX() >= 812 - 156) {
+			this.setX(812 - 156);
 		}
 	}
 

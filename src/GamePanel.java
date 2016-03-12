@@ -23,21 +23,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	GameObject road2;
 	GameObject rotten;
 	GameObject truck;
-
+	int frameHeight;
+	int frameWidth;
 
 	GamePanel() {
+		frameHeight = 750;
+		frameWidth = 1000;
+
 		try {
-			i1 = ImageIO.read(this.getClass().getResourceAsStream("jungle.jpg"));
-			i4 = ImageIO.read(this.getClass().getResourceAsStream("jungle.jpg"));
+			i1 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
+			i4 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
 			i2 = ImageIO.read(this.getClass().getResourceAsStream("rotten.png"));
 			i3 = ImageIO.read(this.getClass().getResourceAsStream("truck.png"));
 		} catch (Exception ex) {
 
 		}
-		road = new Road(0, 0, 800 * 2, 600 * 2, i1);
-		road2 = new Road(0, -600 * 2, 800 * 2, 600 * 2, i4);
+		road = new Road(0, 0, frameWidth, frameHeight, i1);
+		road2 = new Road(0, -frameHeight, frameWidth, frameHeight, i4);
 		rotten = new Enemy(10, 10, 229 / 4, 225 / 4, i2);
-		truck = new Truck(650, 550, 93 * 2, 150 * 2, i3);
+		truck = new Truck(450, 430, 93 * 2, 150 * 2, i3);
 
 		objects = new ArrayList<GameObject>();
 		// for (int i = 0; i < 5; i++) {
@@ -56,10 +60,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		road.setY(newY += 2);
 		int newY1 = road2.getY();
 		road2.setY(newY1 += 2);
-		if (road.getY() == 600 * 2) {
-			road.setY(-600 * 2);
-		} else if (road2.getY() == 600 * 2) {
-			road2.setY(-600 * 2);
+		if (road.getY() == frameHeight) {
+			road.setY(-frameHeight);
+		} else if (road2.getY() == frameHeight) {
+			road2.setY(-frameHeight);
 		}
 
 		for (GameObject go : objects) {
@@ -88,22 +92,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-		((Truck)truck).left=true;
-		((Truck)truck).right=false;
+			((Truck) truck).left = true;
+			((Truck) truck).right = false;
 
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			((Truck)truck).left=false;
-			((Truck)truck).right=true;
-			//int newX = truck.getX();
-			//truck.setX(newX +=5);
+			((Truck) truck).left = false;
+			((Truck) truck).right = true;
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			((Truck) truck).left = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			((Truck) truck).right = false;
+		}
 	}
 }
