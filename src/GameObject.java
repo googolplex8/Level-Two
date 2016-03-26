@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -8,6 +9,7 @@ public class GameObject {
 	int y;
 	int width;
 	int height;
+	private Rectangle collisionBox;
 	BufferedImage image;
 
 	public GameObject(int x, int y, int width, int height, BufferedImage image) {
@@ -16,6 +18,7 @@ public class GameObject {
 		this.width = width;
 		this.height = height;
 		this.image = image;
+		this.setCollisionBox(new Rectangle(x, y, width, height));
 	}
 
 	void update() {
@@ -32,15 +35,26 @@ public class GameObject {
 
 	public void setX(int x1) {
 		x = x1;
+		collisionBox.setLocation(x1, (int) collisionBox.getY());
 	}
 
 	public void setY(int y1) {
 		y = y1;
+		collisionBox.setLocation((int) collisionBox.getX(), y1);
+		
 	}
 
 	public void paint(Graphics gra) {
 		gra.drawImage(image, x, y, width, height, null);
 
+	}
+
+	Rectangle getCollisionBox() {
+		return collisionBox;
+	}
+
+	void setCollisionBox(Rectangle collisionBox) {
+		this.collisionBox = collisionBox;
 	}
 
 }

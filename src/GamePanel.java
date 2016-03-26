@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,6 +16,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ArrayList<GameObject> objects;
 	Timer timer;
 	int x = 0;
+	int score = 0;
+	Random rand = new Random();
+	Random rand1 = new Random();
+	int difficulty = 100;
+	boolean hit = false;
 	BufferedImage i1;
 	BufferedImage i4;
 	BufferedImage i2;
@@ -40,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		road = new Road(0, 0, frameWidth, frameHeight, i1);
 		road2 = new Road(0, -frameHeight, frameWidth, frameHeight, i4);
-		rotten = new Enemy(10, 10, 229 / 4, 225 / 4, i2);
+		rotten = new Enemy(200, 10, 229 / 4, 225 / 4, i2);
 		truck = new Truck(450, 430, 93 * 2, 150 * 2, i3);
 
 		objects = new ArrayList<GameObject>();
@@ -56,6 +62,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
+		//g.drawString("" + score, 10, 10);
+
+		
+		if (rotten.getY() >= frameHeight + 225 / 4) {
+			objects.remove(rotten);
+		}
+		if (truck.getCollisionBox().intersects(rotten.getCollisionBox()) && !hit) {
+			objects.remove(rotten);
+			score -= 1;
+			System.out.println(score);
+			hit = true;
+		}
+
 		int newY = road.getY();
 		road.setY(newY += 2);
 		int newY1 = road2.getY();
@@ -66,14 +85,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			road2.setY(-frameHeight);
 		}
 
-		for (GameObject go : objects) {
-			go.paint(g);
+		for (int i = 0; i<objects.size(); i++){
+		GameObject o = objects.get(i);	
+		o.paint(g);
+		}
+			
+		
+	}
+
+	void addFruit() {
+		if (rand.nextInt(1000) == 1) {
+			Enemy e = new Enemy(rand1.nextInt(812-156)+156, 10, 229 / 4, 225 / 4, i2);
+			objects.add(e);
+			rand =new Random();
 		}
 	}
 
 	public void update() {
-		for (GameObject go : objects) {
-			go.update();
+		for (int i = 0; i<objects.size(); i++){
+		GameObject o = objects.get(i);	
+		addFruit();
+		o.update();
 		}
 	}
 
@@ -112,4 +144,5 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			((Truck) truck).right = false;
 		}
 	}
+
 }
