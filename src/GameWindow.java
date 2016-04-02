@@ -22,7 +22,7 @@ public class GameWindow implements KeyListener {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 750);
-
+		frame.setResizable(false);
 	}
 
 	@Override

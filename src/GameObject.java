@@ -5,20 +5,23 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class GameObject {
+	private int id;
 	int x;
 	int y;
 	int width;
 	int height;
+	private int speed;
 	private Rectangle collisionBox;
 	BufferedImage image;
 
-	public GameObject(int x, int y, int width, int height, BufferedImage image) {
+	public GameObject(int x, int y, int width, int height, BufferedImage image, int speed) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.image = image;
-		this.setCollisionBox(new Rectangle(x, y, width, height));
+		setSpeed(speed);
+		setCollisionBox(new Rectangle(x, y, width, height));
 	}
 
 	void update() {
@@ -35,12 +38,12 @@ public class GameObject {
 
 	public void setX(int x1) {
 		x = x1;
-		collisionBox.setLocation(x1, (int) collisionBox.getY());
+		getCollisionBox().setLocation(x1, (int) getCollisionBox().getY());
 	}
 
 	public void setY(int y1) {
 		y = y1;
-		collisionBox.setLocation((int) collisionBox.getX(), y1);
+		getCollisionBox().setLocation((int) getCollisionBox().getX(), y1);
 		
 	}
 
@@ -55,6 +58,22 @@ public class GameObject {
 
 	void setCollisionBox(Rectangle collisionBox) {
 		this.collisionBox = collisionBox;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	int getSpeed() {
+		return speed;
+	}
+
+	void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 }
