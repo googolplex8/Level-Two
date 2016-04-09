@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Truck extends GameObject {
@@ -29,10 +30,12 @@ public class Truck extends GameObject {
 		if (this.getX() >= 812 - 156) {
 			this.setX(812 - 156);
 		}
+		setCollisionBox(new Rectangle(x, y, width, height));
 	}
 
 	public void paint(Graphics gra) {
 		gra.drawImage(image, x, y, width, height, null);
+		gra.drawRect(x, y, width, height);
 
 	}
 

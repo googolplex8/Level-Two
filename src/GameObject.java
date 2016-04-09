@@ -22,10 +22,10 @@ public class GameObject {
 		this.image = image;
 		setSpeed(speed);
 		setCollisionBox(new Rectangle(x, y, width, height));
-	}
+		
+			}
 
 	void update() {
-
 	}
 
 	public int getX() {
@@ -39,12 +39,13 @@ public class GameObject {
 	public void setX(int x1) {
 		x = x1;
 		getCollisionBox().setLocation(x1, (int) getCollisionBox().getY());
+		//System.out.println(x1);
 	}
 
 	public void setY(int y1) {
 		y = y1;
 		getCollisionBox().setLocation((int) getCollisionBox().getX(), y1);
-		
+		//System.out.println(y1);
 	}
 
 	public void paint(Graphics gra) {
