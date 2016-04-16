@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ArrayList<GameObject> objects;
 	Timer timer;
 	int x = 0;
-	int score = 0;
+	public int score;
 	int speed = 5;
 	Random rand = new Random();
 	Random rand1 = new Random();
@@ -36,11 +37,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	GameObject truck;
 	int frameHeight;
 	int frameWidth;
+	long lStartTime;
+	long difference;
+	public long gamelength = 5;
 
 	GamePanel() {
 		frameHeight = 750;
 		frameWidth = 1000;
-
+		lStartTime = new Date().getTime();
+		score = 0;
 		try {
 			i1 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
@@ -50,11 +55,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} catch (Exception ex) {
 
 		}
-		road = new Road(0, 0, frameWidth, frameHeight+speed, i1, speed);
-		road2 = new Road(0, -frameHeight, frameWidth, frameHeight+speed, i4, speed);
+		road = new Road(0, 0, frameWidth, frameHeight + speed, i1, speed);
+		road2 = new Road(0, -frameHeight, frameWidth, frameHeight + speed, i4, speed);
 		// rotten = new Enemy(200, 10, 229 / 4, 225 / 4, i2);
 		truck = new Truck(450, 420, 93 * 2, 150 * 2, i3, 4);
-		
+
 		objects = new ArrayList<GameObject>();
 		// for (int i = 0; i < 5; i++) {
 		// objects.add(new Enemy(100, 100, 229 / 4, 225 / 4, i2));
@@ -68,17 +73,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
-
-		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
-		g.drawString("" + score, 100, 100);
 		int newY = road.getY();
 		road.setY(newY += road.getSpeed());
-		
+
 		int newY1 = road2.getY();
 		road2.setY(newY1 += road2.getSpeed());
 		if (road.getY() >= frameHeight) {
 			road.setY(-frameHeight);
-		} if (road2.getY() >= frameHeight) {
+		}
+		if (road2.getY() >= frameHeight) {
 			road2.setY(-frameHeight);
 		}
 
@@ -86,7 +89,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			GameObject o = objects.get(i);
 			o.paint(g);
 			if (o.getId() == 2) {
-				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Enemy) o).alive ){
+				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Enemy) o).alive) {
 					objects.remove(o);
 					score -= 1;
 					System.out.println(score);
@@ -95,10 +98,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					objects.remove(o);
 					System.out.println("removing");
 				}
-				
+
 			}
 			if (o.getId() == 3) {
-				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit) o).alive ){
+				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit) o).alive) {
 					objects.remove(o);
 					score += 1;
 					System.out.println(score);
@@ -107,8 +110,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					objects.remove(o);
 					System.out.println("removing");
 				}
-				
+
 			}
+		}
+		if (score > 0) {
+			g.setColor(Color.GREEN);
+		} else if (score == 0) {
+			g.setColor(Color.BLACK);
+		} else {
+			g.setColor(Color.RED);
+		}
+
+		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
+		g.drawString("" + score, 30, 100);
+		g.setColor(Color.BLUE);
+		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
+		g.drawString("" + difference / 1000, 900, 100);
+		
+		if(difference/1000 == gamelength){
+			GameWindow.closeGame();
 		}
 	}
 
@@ -119,6 +139,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rand = new Random();
 		}
 	}
+
 	void addFruit() {
 		if (rand.nextInt(100) == 1) {
 			Fruit e = new Fruit(rand1.nextInt(812 - 156) + 156, -(225 / 4), 509 / 8, 518 / 8, i5, speed);
@@ -128,6 +149,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void update() {
+		long lEndTime = new Date().getTime();
+		//System.out.println(lStartTime + "  " + lEndTime);
+		difference = lEndTime - lStartTime;
 		addRotten();
 		addFruit();
 		for (int i = 0; i < objects.size(); i++) {
