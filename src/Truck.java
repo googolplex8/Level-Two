@@ -35,7 +35,7 @@ public class Truck extends GameObject {
 
 	public void paint(Graphics gra) {
 		gra.drawImage(image, x, y, width, height, null);
-		gra.drawRect(x, y, width, height);
+		//gra.drawRect(x, y, width, height);
 
 	}
 

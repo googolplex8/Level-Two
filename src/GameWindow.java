@@ -18,6 +18,7 @@ public class GameWindow implements KeyListener, ActionListener {
 	static JPanel panel2;
 	BufferedImage i1;
 	BufferedImage i2;
+	BufferedImage pic;
 
 	public static void main(String[] args) {
 		GameWindow gw = new GameWindow();
@@ -40,8 +41,13 @@ public class GameWindow implements KeyListener, ActionListener {
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 750);
 		frame.setResizable(false);
+//		try {
+//			pic = ImageIO.read(this.getClass().getResourceAsStream("startPic.png"));
+//		} catch (Exception ex) {
+//
+//		}
 
-		frame2 = new JFrame();
+		frame2 = new JFrame("Thai Fruit Truck!");
 		frame2.setVisible(true);
 		frame2.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		panel2 = new JPanel();

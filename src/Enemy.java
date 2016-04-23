@@ -23,7 +23,7 @@ public class Enemy extends GameObject {
 	public void paint(Graphics gra) {
 		gra.drawImage(image, x, y, width, height, null);
 		gra.setColor(Color.RED);
-		gra.drawRect(x, y, width, height);
+		//gra.drawRect(x, y, width, height);
 	}
 
 	public int getId() {

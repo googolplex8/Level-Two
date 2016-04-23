@@ -3,10 +3,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Fruit extends GameObject {
-	private int id = 3;
+public class Fruit2 extends GameObject {
+	private int id = 4;
 	public boolean alive = true;
-	public Fruit(int x, int y, int width, int height, BufferedImage image, int speed) {
+	public Fruit2(int x, int y, int width, int height, BufferedImage image, int speed) {
 		super(x, y, width, height, image, speed);
 			// TODO Auto-generated constructor stub
 	}
