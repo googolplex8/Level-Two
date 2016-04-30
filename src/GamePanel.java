@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		frameHeight = 750;
 		frameWidth = 1000;
 		lStartTime = new Date().getTime();
-		score = 0;
+		setScore(0);
 		try {
 			i1 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("jungle.png"));
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		road = new Road(0, 0, frameWidth, frameHeight + speed, i1, speed);
 		road2 = new Road(0, -frameHeight, frameWidth, frameHeight + speed, i4, speed);
-		truck = new Truck(450, 420, 93 * 2, 150 * 2, i3, 4);
+		truck = new Truck(450, 420, 93 * 2, 150 * 2, i3, speed);
 
 		objects = new ArrayList<GameObject>();
 		objects.add(road);
@@ -76,9 +76,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int newY1 = road2.getY();
 		road2.setY(newY1 += road2.getSpeed());
+		
 		if (road.getY() >= frameHeight) {
 			road.setY(-frameHeight);
 		}
+		
 		if (road2.getY() >= frameHeight) {
 			road2.setY(-frameHeight);
 		}
@@ -89,8 +91,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (o.getId() == 2) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Enemy) o).alive) {
 					objects.remove(o);
-					score -= 1;
-					System.out.println(score);
+					setScore(getScore() - 1);
+					System.out.println(getScore());
 				}
 				if (((Enemy) o).alive == false) {
 					objects.remove(o);
@@ -101,8 +103,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (o.getId() == 3) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit) o).alive) {
 					objects.remove(o);
-					score += 1;
-					System.out.println(score);
+					setScore(getScore() + 1);
+					System.out.println(getScore());
 				}
 				if (((Fruit) o).alive == false) {
 					objects.remove(o);
@@ -114,7 +116,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit2) o).alive) {
 					objects.remove(o);
 					gamelength += 1;
-					System.out.println(score);
+					System.out.println(getScore());
 				}
 				if (((Fruit2) o).alive == false) {
 					objects.remove(o);
@@ -123,16 +125,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 		}
-		if (score > 0) {
+		if (getScore() > 0) {
 			g.setColor(Color.GREEN);
-		} else if (score == 0) {
+		} else if (getScore() == 0) {
 			g.setColor(Color.BLACK);
 		} else {
 			g.setColor(Color.RED);
 		}
 
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
-		g.drawString("" + score, 30, 100);
+		g.drawString("" + getScore(), 30, 100);
 		g.setColor(Color.BLUE);
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
 		g.drawString("" + timeDown / 1000, 850, 100);
@@ -221,6 +223,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			((Truck) truck).right = false;
 		}
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }

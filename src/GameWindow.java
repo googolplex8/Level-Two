@@ -1,3 +1,5 @@
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,8 +19,6 @@ public class GameWindow implements KeyListener, ActionListener {
 	static GamePanel panel;
 	static JPanel panel2;
 	BufferedImage i1;
-	BufferedImage i2;
-	BufferedImage pic;
 
 	public static void main(String[] args) {
 		GameWindow gw = new GameWindow();
@@ -30,8 +30,7 @@ public class GameWindow implements KeyListener, ActionListener {
 
 	public void createUI() {
 		try {
-			i1 = ImageIO.read(this.getClass().getResourceAsStream("rotten.png"));
-			i2 = ImageIO.read(this.getClass().getResourceAsStream("realFruit.png"));
+			i1 = ImageIO.read(this.getClass().getResourceAsStream("startPic.jpg"));
 		} catch (Exception ex) {
 
 		}
@@ -41,28 +40,30 @@ public class GameWindow implements KeyListener, ActionListener {
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 750);
 		frame.setResizable(false);
-//		try {
-//			pic = ImageIO.read(this.getClass().getResourceAsStream("startPic.png"));
-//		} catch (Exception ex) {
-//
-//		}
 
 		frame2 = new JFrame("Thai Fruit Truck!");
 		frame2.setVisible(true);
 		frame2.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		panel2 = new JPanel();
+		panel2 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(i1, 0 ,0, 1026, 778, null);
+				g.setFont(new Font(Font.SANS_SERIF, 100, 100));
+				if(panel!=null){
+				g.drawString("Your score is " + panel.getScore(), 100, 100);
+				}
+			}
+		};
+
 		frame2.setSize(1000, 750);
-		frame2.add(panel2);
-		panel2.add(score);
 		restart.addActionListener(this);
 		panel2.add(restart);
+		frame2.add(panel2);
 	}
 
 	public static void closeGame() {
 		frame.setVisible(false);
 		frame2.setVisible(true);
 		frame.remove(panel);
-		score.setText("Your score is " + panel.score);
 	}
 
 	public void restart() {
