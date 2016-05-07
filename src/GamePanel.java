@@ -72,17 +72,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void paintComponent(Graphics g) {
 		int newY = road.getY();
-		road.setY(newY += road.getSpeed());
+		//road.setY(newY += road.getSpeed());
 
 		int newY1 = road2.getY();
-		road2.setY(newY1 += road2.getSpeed());
-		
+		//road2.setY(newY1 += road2.getSpeed());
+
 		if (road.getY() >= frameHeight) {
 			road.setY(-frameHeight);
 		}
-		
+		else{
+			road.setY(newY+=road.getSpeed());
+		}
 		if (road2.getY() >= frameHeight) {
 			road2.setY(-frameHeight);
+		}
+		else{
+			road2.setY(newY1+=road2.getSpeed());
 		}
 
 		for (int i = 0; i < objects.size(); i++) {
@@ -93,34 +98,37 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					objects.remove(o);
 					setScore(getScore() - 1);
 					System.out.println(getScore());
+					new Thread(new SoundPlayer("squish.wav")).start();
 				}
 				if (((Enemy) o).alive == false) {
 					objects.remove(o);
-				//	System.out.println("removing");
+					// System.out.println("removing");
 				}
 
 			}
 			if (o.getId() == 3) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit) o).alive) {
+					new Thread(new SoundPlayer("ping.wav")).start();
 					objects.remove(o);
 					setScore(getScore() + 1);
 					System.out.println(getScore());
 				}
 				if (((Fruit) o).alive == false) {
 					objects.remove(o);
-					//System.out.println("removing");
+					// System.out.println("removing");
 				}
 
 			}
 			if (o.getId() == 4) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit2) o).alive) {
+					new Thread(new SoundPlayer("pine.wav")).start();
 					objects.remove(o);
-					gamelength += 1;
+					gamelength += 2;
 					System.out.println(getScore());
 				}
 				if (((Fruit2) o).alive == false) {
 					objects.remove(o);
-					//System.out.println("removing");
+					// System.out.println("removing");
 				}
 
 			}
@@ -135,7 +143,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
 		g.drawString("" + getScore(), 30, 100);
-		g.setColor(Color.BLUE);
+		g.setColor(Color.YELLOW);
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
 		g.drawString("" + timeDown / 1000, 850, 100);
 
@@ -161,7 +169,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void addFruit2() {
-		if (rand.nextInt(150) == 1) {
+		if (rand.nextInt(250) == 1) {
 			Fruit2 e = new Fruit2(rand1.nextInt(812 - 156) + 156, -(225 / 4), 640 / 10, 1068 / 10, i6, speed);
 			objects.add(e);
 			rand = new Random();
@@ -175,14 +183,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		addRotten();
 		addFruit();
 		addFruit2();
-		if (nextSpeedUp == difference/1000) {
-			speed += 1;
-			road.setSpeed(speed);
-			road2.setSpeed(speed);
-			truck.setSpeed(speed);
-			nextSpeedUp += 10;
-			System.out.println("speeding up, new speed is "+ speed);
-		}
+//		if (nextSpeedUp == difference / 1000) {
+//			speed += 1;
+//			road.setSpeed(speed);
+//			road2.setSpeed(speed);
+//			truck.setSpeed(speed);
+//			nextSpeedUp += 10;
+//			System.out.println("speeding up, new speed is " + speed);
+//		}
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.update();
@@ -211,6 +219,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			((Truck) truck).left = false;
 			((Truck) truck).right = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			new Thread(new SoundPlayer("honk.wav")).start();
 		}
 
 	}

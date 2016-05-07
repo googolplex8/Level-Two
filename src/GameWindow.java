@@ -10,14 +10,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+//Add people who move at honk, but -10pts if you hit them
 public class GameWindow implements KeyListener, ActionListener {
 	static JFrame frame;
 	static JFrame frame2;
 	static GamePanel panel;
 	static JPanel panel2;
+	JButton instructions = new JButton("Instructions");
 	BufferedImage i1;
 
 	public static void main(String[] args) {
@@ -46,10 +48,10 @@ public class GameWindow implements KeyListener, ActionListener {
 		frame2.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		panel2 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(i1, 0 ,0, 1026, 778, null);
+				g.drawImage(i1, 0, 0, 1026, 778, null);
 				g.setFont(new Font(Font.SANS_SERIF, 100, 100));
-				if(panel!=null){
-				g.drawString("Your score is " + panel.getScore(), 100, 100);
+				if (panel != null) {
+					g.drawString("Your score is " + panel.getScore(), 100, 100);
 				}
 			}
 		};
@@ -58,6 +60,8 @@ public class GameWindow implements KeyListener, ActionListener {
 		restart.addActionListener(this);
 		panel2.add(restart);
 		frame2.add(panel2);
+		panel2.add(instructions);
+		instructions.addActionListener(this);
 	}
 
 	public static void closeGame() {
@@ -97,6 +101,9 @@ public class GameWindow implements KeyListener, ActionListener {
 		JButton buttonPressed = (JButton) e.getSource();
 		if (buttonPressed == restart) {
 			restart();
+		}
+		if(buttonPressed == instructions){
+			JOptionPane.showMessageDialog(null, "Get Points. Arrow keys to move. Space to honk. Good Luck and safe driving!");
 		}
 	}
 
