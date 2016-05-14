@@ -6,11 +6,14 @@ public class Truck extends GameObject {
 	public Boolean left;
 	public Boolean right;
 	public int id = 0;
+	
+	public Rectangle guyRect;
 
 	public Truck(int x, int y, int width, int height, BufferedImage image, int speed) {
 		super(x, y, width, height, image, speed);
 		left = false;
 		right = false;
+		this.guyRect = new Rectangle(x, y-320, width, height);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,6 +34,7 @@ public class Truck extends GameObject {
 			this.setX(812 - 156);
 		}
 		setCollisionBox(new Rectangle(x, y, width, height));
+		this.guyRect = (new Rectangle(x, y-320, width, height));
 	}
 
 	public void paint(Graphics gra) {

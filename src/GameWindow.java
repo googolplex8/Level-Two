@@ -49,7 +49,7 @@ public class GameWindow implements KeyListener, ActionListener {
 		panel2 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(i1, 0, 0, 1026, 778, null);
-				g.setFont(new Font(Font.SANS_SERIF, 100, 100));
+				g.setFont(new Font(Font.SANS_SERIF, 80, 80));
 				if (panel != null) {
 					g.drawString("Your score is " + panel.getScore(), 100, 100);
 				}
@@ -103,7 +103,7 @@ public class GameWindow implements KeyListener, ActionListener {
 			restart();
 		}
 		if(buttonPressed == instructions){
-			JOptionPane.showMessageDialog(null, "Get Points. Arrow keys to move. Space to honk. Good Luck and safe driving!");
+			JOptionPane.showMessageDialog(null, "Get Points. Arrow keys to move. Space to honk people out of the way (1pt) \nGood Luck and safe driving!");
 		}
 	}
 
