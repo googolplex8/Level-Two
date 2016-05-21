@@ -34,7 +34,7 @@ public class Truck extends GameObject {
 			this.setX(812 - 156);
 		}
 		setCollisionBox(new Rectangle(x, y, width, height));
-		this.guyRect = (new Rectangle(x, y-320, width, height));
+		this.guyRect = (new Rectangle(x, y-300, width, height));
 	}
 
 	public void paint(Graphics gra) {

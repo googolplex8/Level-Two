@@ -62,8 +62,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		road = new Road(0, 0, frameWidth, frameHeight + speed, i1, speed);
 		road2 = new Road(0, -frameHeight, frameWidth, frameHeight + speed, i4, speed);
-		truck = new Truck(450, 420, 93 * 2, 150 * 2, i3, speed);
-
+		truck = new Truck(450, 420, 155, 250, i3, speed);
+		// original truck dimensions 186, 300
 		objects = new ArrayList<GameObject>();
 		objects.add(road);
 		objects.add(road2);
@@ -155,11 +155,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.RED);
 		}
 
+
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
-		g.drawString("" + getScore(), 30, 100);
+		g.drawString("" + getScore(), 30, 150);
+		g.setFont(new Font(Font.SANS_SERIF, 50, 50));
+		g.drawString("Score:", 20, 50);
+		
 		g.setColor(Color.YELLOW);
+		g.drawString("Time:", 850, 50);
 		g.setFont(new Font(Font.SANS_SERIF, 100, 100));
-		g.drawString("" + timeDown / 1000, 850, 100);
+		g.drawString("" + timeDown / 1000, 850, 150);
 
 		if (difference / 1000 == gamelength) {
 			GameWindow.closeGame();

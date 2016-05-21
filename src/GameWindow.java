@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ public class GameWindow implements KeyListener, ActionListener {
 	static JPanel panel2;
 	JButton instructions = new JButton("Instructions");
 	BufferedImage i1;
+	ImageIcon img = new ImageIcon("inst.png");
 
 	public static void main(String[] args) {
 		GameWindow gw = new GameWindow();
@@ -41,6 +43,7 @@ public class GameWindow implements KeyListener, ActionListener {
 		frame.setVisible(false);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 750);
+		frame.setIconImage(img.getImage());
 		frame.setResizable(false);
 
 		frame2 = new JFrame("Thai Fruit Truck!");
@@ -51,7 +54,7 @@ public class GameWindow implements KeyListener, ActionListener {
 				g.drawImage(i1, 0, 0, 1026, 778, null);
 				g.setFont(new Font(Font.SANS_SERIF, 80, 80));
 				if (panel != null) {
-					g.drawString("Your score is " + panel.getScore(), 100, 100);
+					g.drawString("Your score is " + panel.getScore(), 150, 100);
 				}
 			}
 		};
@@ -103,7 +106,12 @@ public class GameWindow implements KeyListener, ActionListener {
 			restart();
 		}
 		if(buttonPressed == instructions){
-			JOptionPane.showMessageDialog(null, "Get Points. Arrow keys to move. Space to honk people out of the way (1pt) \nGood Luck and safe driving!");
+			JOptionPane.showMessageDialog(null, 
+					"Get points by collecting good fruit (green) and avioding bad fruit (brown)."
+					+ "\nPineapples add 2 seconds to your time."
+					+ "\nArrow keys to move."
+					+ "\nDon't hit the poeple! You can use space to honk people out of the way (+1pt)."
+					+ "\nGood Luck and safe driving!");
 		}
 	}
 
