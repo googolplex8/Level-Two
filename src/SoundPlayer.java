@@ -9,7 +9,7 @@ public class SoundPlayer implements Runnable {
 	SoundPlayer(String file) {
 		this.file = file;
 	}
-
+//allows a sound to be played
 	public void run() {
 		try {
 			File sound = new File(file);

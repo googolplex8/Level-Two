@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		timer.start();
 	}
-
+//creates everything on the game screen 
 	public void paintComponent(Graphics g) {
 		int newY = road.getY();
 		// road.setY(newY += road.getSpeed());
@@ -170,7 +170,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			GameWindow.closeGame();
 		}
 	}
-
+//adds the bad fruit if a random number between 0 and 100 equals 1
 	void addRotten() {
 		if (rand.nextInt(100) == 1) {
 			Enemy e = new Enemy(rand1.nextInt(812 - 156) + 156, -(225 / 4), 229 / 4, 225 / 4, i2, speed);
@@ -178,7 +178,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rand = new Random();
 		}
 	}
-
+//adds the good fruit if a random number between 0 and 100 equals 1
 	void addFruit() {
 		if (rand.nextInt(100) == 1) {
 			Fruit e = new Fruit(rand1.nextInt(812 - 156) + 156, -(225 / 4), 509 / 8, 518 / 8, i5, speed);
@@ -186,7 +186,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rand = new Random();
 		}
 	}
-
+//adds the pineapple if a random number between 0 and 250 equals 1
 	void addFruit2() {
 		if (rand.nextInt(250) == 1) {
 			Fruit2 e = new Fruit2(rand1.nextInt(812 - 156) + 156, -(225 / 4), 640 / 10, 1068 / 10, i6, speed);
@@ -194,7 +194,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rand = new Random();
 		}
 	}
-
+//adds the pedestrian if a random number between 1 and 250 equals 1
 	void addGuy() {
 		if (rand.nextInt(250) == 1) {
 			Guy e = new Guy(rand1.nextInt(812 - 156) + 156, -(225 / 4),  73, 70, i7, speed);
@@ -203,7 +203,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rand = new Random();
 		}
 	}
-
+//adds objects to the game panel and does time math 
 	public void update() {
 		long lEndTime = new Date().getTime();
 		difference = lEndTime - lStartTime;
@@ -237,7 +237,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 
 	}
-
+//allows truck to be moved and honked
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
