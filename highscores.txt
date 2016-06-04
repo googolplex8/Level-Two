@@ -1,7 +1,6 @@
 *** Work in progress***
-XXPlayer1theMLG420dankScopeSwagMasterXX: 50
+Player1: 50
 Player2: 40
 Player3: 30
 Player4: 20
 Player5: 10
-

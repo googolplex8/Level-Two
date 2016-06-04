@@ -30,7 +30,9 @@ public class GameWindow implements KeyListener, ActionListener {
 	JButton instructions = new JButton("Instructions");
 	BufferedImage i1;
 	ImageIcon img = new ImageIcon(getClass().getResource("inst.png"));
-	static String scores = "";
+	static String data = "";
+	static String[] names = new String[5];
+	static int[] scores = new int[5];
 	
 	public static void main(String[] args) {
 		GameWindow gw = new GameWindow();
@@ -43,20 +45,25 @@ public class GameWindow implements KeyListener, ActionListener {
 
         try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
-                new FileReader(fileName);
+            FileReader fr = 
+                new FileReader("highscores.txt");
 
             // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
+            BufferedReader br = 
+                new BufferedReader(fr);
+            int cur = 0;
+            while((line = br.readLine()) != null) {
                 System.out.println(line);
-                scores = scores + "\n" + line;
+                data = data + "\n" + line;
+                String [] sdata = line.split(": ");
+                names[cur] = sdata[0];
+                scores[cur] = Integer.parseInt(sdata[1]);
+                ++cur;
             }   
 
             // Always close files.
-            bufferedReader.close();         
+            br.close();  
+            fr.close();
         }
         catch(FileNotFoundException ex) {
             System.out.println(
@@ -86,7 +93,7 @@ public class GameWindow implements KeyListener, ActionListener {
 		instructions.setFont(instructions.getFont().deriveFont(20f));
 		restart.setFont(restart.getFont().deriveFont(20f));
 		high.setFont(high.getFont().deriveFont(20f));
-		frame = new JFrame("Thai Fruit Truck!");
+		frame = new JFrame("Thai Fruit Truck! (Version 2.5)");
 		frame.addKeyListener(this);
 		frame.setVisible(false);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -94,7 +101,7 @@ public class GameWindow implements KeyListener, ActionListener {
 		//frame.setIconImage(img.getImage());
 		frame.setResizable(false);
 
-		frame2 = new JFrame("Thai Fruit Truck!");
+		frame2 = new JFrame("Thai Fruit Truck! (Version 2.5)");
 		frame2.setVisible(true);
 		frame2.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		panel2 = new JPanel() {

@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.naming.CommunicationException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -26,15 +27,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Random rand1 = new Random();
 	int difficulty = 100;
 	boolean hit = false;
-	BufferedImage i1;
-	BufferedImage i4;
-	BufferedImage i2;
-	BufferedImage i3;
-	BufferedImage i5;
-	BufferedImage i6;
-	BufferedImage i7;
-	GameObject road;
-	GameObject road2;
+	BufferedImage i1, i2, i3, i4, i5, i6, i7;
+	GameObject road, road2;
 	GameObject truck;
 	int frameHeight;
 	int frameWidth;
@@ -168,6 +162,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (difference / 1000 == gamelength) {
 			GameWindow.closeGame();
+			String name = JOptionPane.showInputDialog("What is your name fearless driver?");
+			
 		}
 	}
 //adds the bad fruit if a random number between 0 and 100 equals 1
