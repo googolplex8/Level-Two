@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					objects.remove(o);
 					setScore(getScore() - 1);
 					System.out.println(getScore());
-					new Thread(new SoundPlayer("squish.wav")).start();
+					new Thread(new SoundPlayer("/Users/league/Desktop/Level-Two/src/squish.wav")).start();
 				}
 				if (((Enemy) o).alive == false) {
 					objects.remove(o);
@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			if (o.getId() == 3) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit) o).alive) {
-					new Thread(new SoundPlayer("ping.wav")).start();
+					new Thread(new SoundPlayer("/Users/league/Desktop/Level-Two/src/ping.wav")).start();
 					objects.remove(o);
 					setScore(getScore() + 1);
 					System.out.println(getScore());
@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			if (o.getId() == 4) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Fruit2) o).alive) {
-					new Thread(new SoundPlayer("pine.wav")).start();
+					new Thread(new SoundPlayer("/Users/league/Desktop/Level-Two/src/pine.wav")).start();
 					objects.remove(o);
 					gamelength += 2;
 					System.out.println(getScore());
@@ -128,7 +128,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			if (o.getId() == 5) {
 				if (truck.getCollisionBox().intersects(o.getCollisionBox()) && ((Guy) o).alive) {
-					new Thread(new SoundPlayer("wilhelm.wav")).start();
+					new Thread(new SoundPlayer("/Users/league/Desktop/Level-Two/src/wilhelm.wav")).start();
 					objects.remove(o);
 					System.out.println(getScore());
 					score -= 5;
@@ -246,7 +246,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			((Truck) truck).right = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			new Thread(new SoundPlayer("honk.wav")).start();
+			new Thread(new SoundPlayer("/Users/league/Desktop/Level-Two/src/honk.wav")).start();
 			for (int i = 0; i < objects.size(); i++) {
 				GameObject o = objects.get(i);
 				if (o.getId() == 5) {
